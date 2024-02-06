@@ -1,4 +1,3 @@
-#MobileTech #Lecture 
 ### Course Intro
 **Course Convenor/Lecturer**
 **Name:** Dat Tran
@@ -13,6 +12,3 @@ ___
 ### Actions
 - [x] Make sure UpSideDownCake (Android 14) is installed in Android Studio
 - [ ] Create git repo for course
-
-
-For Android Studio, GitHub token: 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
