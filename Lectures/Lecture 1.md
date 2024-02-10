@@ -78,6 +78,8 @@ ___
 ### Actions
 - [x] Make sure UpSideDownCake (Android 14) is installed in Android Studio
 - [x] Create git repo for course
-- [ ] Assignment dates and weightings printed and put up on wall
+- [x] Assignment dates and weightings printed and put up on wall
 - [ ] Prepare for tutorial
+	- [ ] Give the tutorial a first go, see if any roadblocks are hit
+	- [ ] Write up any theory missing
 - [ ] Learn more about Android Studio
