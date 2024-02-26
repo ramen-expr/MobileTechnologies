@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Contact Dat Tran dat.tran@canberra.edu.au -->
+    <title>Assignment - Mobile Technologies (11492 & 9076) </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: arial;
+        }
+
+        h3, h4 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        hr {
+            background-color: grey;
+            height: 1px;
+        }
+
+        label {
+            font-weight: normal;
+        }
+
+            label:hover {
+                background-color: lightgrey;
+                cursor: pointer;
+            }
+
+
+        textarea {
+            margin-left: 20px;
+        }
+
+        .brown_bold {
+            color: brown;
+            font-weight: bold;
+        }
+
+        .mg {
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        label {
+            padding: 0 5px 0 5px;
+            border-radius: 7px;
+        }
+
+        .isSelected {
+            background-color: #f5d8d8;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 style="color: brown;">Mobile Technologies (11492 & 9076)</h4>
+                <h4 style="color:navy;">Assignment - Marking Rubric</h4>
+                <hr />
+            </div>
+            <div class="col-md-12">
+                <span class="offset-md-1 col-md-2">Student: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input class="brown_bold col-md-8" placeholder="id and/or name" autofocus />
+            </div>
+            <div class="col-md-12">
+                <span class="offset-md-1 col-md-2">Total mark (out of 30): </span>
+                <input class="brown_bold col-md-8" id="total_mark" type="number" value="0.0" step="0.25" min="0" max="30" />
+            </div>
+            <div class="col-md-12">
+                <span class="offset-md-1 col-md-2">Contact: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input class="col-md-8 brown_bold" placeholder="Dat Tran (dat.tran@canberra.edu.au)" />
+            </div>
+            <div class="col-md-12">
+                <hr />
+            </div>
+
+            <div class="col-md-12">
+                <p class="col-md-12">
+                    <input class="brown_bold" id="template" type="number" value="0.0" step="0.25" min="-30" max="0" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <b><span style="color:red;"> [total mark = 0 ]</span> The project is not created in Android Studio. <span style="color:red;"> Tutor: click on this line to disable all and stop marking this assignment.</span></b>
+                        <input class="r" type="checkbox" onclick="add_mark(this, 0.0, 'template')">
+                    </label>
+                </p>
+                <p class="col-md-12">
+                    <input class="brown_bold" id="plagiarism" type="number" value="0.0" step="0.5" min="-30" max="0" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <b><span style="color:red;"> [total mark = 0 ] </span> Misconduct/Plagiarism (the project is not done by the submitter, or different students submit the same project or the same file(s) in their project). <span style="color:red;"> Tutor: click on this line to disable all and stop marking this assignment.</span> </b>
+                        <input class="r" type="checkbox" onclick="add_mark(this, 0.0, 'plagiarism')">
+                    </label>
+                </p>
+                <p class="col-md-12">
+                    <input class="brown_bold" id="dependencies" type="number" value="0.0" step="0.5" min="-5" max="0" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <b><span style="color:red;"> [-5 marks] </span> (Dependencies in build.gradle) Latest versions are not used. Latest versions: firebase-database:20.3.0, firebase-storage:20.3.0, play-services-location:21.1.0, play-services-maps:18.2.0, android-maps-utils:2.2.0. </b>
+                        <input class="r" type="checkbox" onclick="add_mark(this, -5.0, 'dependencies')">
+                    </label>
+                </p>
+                <p class="col-md-12">
+                    <input class="brown_bold" id="deprecated" type="number" value="0.0" step="0.5" min="-5" max="0" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <b><span style="color:red;"> [-5 marks] </span> Deprecated code is found in the project. Note: target SDK must be 34 or newer (found this in build.gradle). </b>
+                        <input class="r" type="checkbox" onclick="add_mark(this, -5.0, 'deprecated')">
+                    </label>
+                </p>
+                <p class="col-md-11">
+                    <input class="brown_bold" id="ded2" type="number" value="0.0" step="0.5" min="-30" max="0" onclick="get_total_mark()" onchange="get_total_mark()" /><b><span style="color:red;"> [-2 marks]</span> For each error that makes the app crashed. </b>
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                    <input type="checkbox" onclick="add_mark(this, -2.0, 'ded2')">
+                </p>
+
+                <!-- --------------------------- -->
+                <p class="col-md-12">
+                    <input class="brown_bold" id="ded3" type="number" value="0.0" step="0.25" min="-40" max="0" onclick="get_total_mark()" onchange="get_total_mark()" /><b> Late submission <span style="color:red;">(-0.75 mark after deadline but less than a day, and -1.5 marks per day):</span> </b>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, 0.0, 'ded3')">  0 day </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -0.75, 'ded3')">  (after deadline) </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -1.5, 'ded3')">  1 day </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -2.25, 'ded3')">  1.5 days </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -3.0, 'ded3')">  2 days </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -3.75, 'ded3')">  2.5 days </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -4.5, 'ded3')">  3 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -5.25, 'ded3')">  3.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -6.0, 'ded3')">  4 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -6.75, 'ded3')">  4.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -7.5, 'ded3')">  5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -8.25, 'ded3')">  5.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -9.0, 'ded3')">  6 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -9.75, 'ded3')">  6.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -10.5, 'ded3')">  7 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -11.25, 'ded3')">  7.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -12.0, 'ded3')">  8 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -12.75, 'ded3')">  8.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -13.5, 'ded3')">  9 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -14.25, 'ded3')">  9.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -15.0, 'ded3')">  10 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -15.75, 'ded3')">  10.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -16.5, 'ded3')">  11 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -17.25, 'ded3')">  11.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -18.0, 'ded3')">  12 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -18.75, 'ded3')">  12.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -19.5, 'ded3')">  13 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -20.25, 'ded3')">  13.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -21.0, 'ded3')">  14 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -21.75, 'ded3')">  14.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -22.5, 'ded3')">  15 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -23.25, 'ded3')">  15.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -24.0, 'ded3')">  16 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -24.75, 'ded3')">  16.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -25.5, 'ded3')">  17 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -26.25, 'ded3')">  17.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -27.0, 'ded3')">  18 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -27.75, 'ded3')">  18.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -28.5, 'ded3')">  19 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -29.25, 'ded3')">  19.5 </label>
+                    <label><input class="r" type="radio" name="late" onclick="set_mark(this, -30.0, 'ded3')">  20 days</label>
+                </p>
+
+                <textarea class="col-md-12" id="cmt1" rows="1" placeholder="no comment" value=""></textarea>
+
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <!-- --------------------------- -->
+                
+                <p class="col-md-12">
+                    <input class="brown_bold" id="mrk2" type="number" value="0.0" step="0.25" min="0" max="8" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <span class="brown_bold">
+                            <span style="color:red;"> [6.0 marks]</span> Home Screen (Assignment - Page 1)
+                        </span>
+                        <input type="checkbox" onclick="setAllMarks(this, 'c2', 'mrk2')" />
+                    </label>
+                    <label><span style="color:red;">0</span><input type="checkbox" onclick="setZeroMarks(this, 'o2')" /></label>
+                    <br />
+                    <ol>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>Action bar colour: navy (#000080) and title: UC Bruce Campus Map and Events. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2b" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2" type="radio" name="s2b" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2b" value="0.5" onclick="getMark('s2', 'mrk2')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The background colour for this screen layout is #EBF1E3. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2c" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2c" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>For responsive design and in portrait mode, set layout_width to 0 and use left (right) constraint to set left (right) margin for all UI elements (text view, edit text, image and button). Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2d" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2" type="radio" name="s2d" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                            <label><input class="r s2" type="radio" name="s2d" value="0.5" onclick="getMark('s2', 'mrk2')">  0.5 </label>
+                            <label><input class="r s2" type="radio" name="s2d" value="0.75" onclick="getMark('s2', 'mrk2')">  0.75 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2d" value="1.0" onclick="getMark('s2', 'mrk2')">  1.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The heading University of Canberra: text size: 24sp, alignment: center, margin top: 16dp, margin left: 8dp, margin right: 8dp. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2e" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2e" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The sub heading Bruce Campus: text size: 20sp, alignment: center, margin top: 8dp. margin left: 8dp, margin right: 8dp. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2f" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2f" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The image: margin left: 8dp, margin right: 8dp, margin top: 16dp. The image is just for design, you can use your own image. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2g" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2g" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>For other texts and buttons on this screen: text size: 20sp. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2h" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2h" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.75 mark]</span>
+                            <span>For responsive design, all the colours, margins and text sizes must be the same on different devices (run the app on 2 different emulators for testing). Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2i" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2" type="radio" name="s2i" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                            <label><input class="r s2" type="radio" name="s2i" value="0.50" onclick="getMark('s2', 'mrk2')">  0.50 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2i" value="0.75" onclick="getMark('s2', 'mrk2')">  0.75 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.25 mark]</span>
+                            <span>UI design for landscape mode. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2n" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2" type="radio" name="s2n" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                            <label><input class="r s2" type="radio" name="s2n" value="0.50" onclick="getMark('s2', 'mrk2')">  0.50 </label>
+                            <label><input class="r s2" type="radio" name="s2n" value="0.75" onclick="getMark('s2', 'mrk2')">  0.75 </label>
+                            <label><input class="r s2" type="radio" name="s2n" value="1.0" onclick="getMark('s2', 'mrk2')">  1.0 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2n" value="1.25" onclick="getMark('s2', 'mrk2')">  1.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>The user enters an event name (UC Open Day, for example) and taps the ADD ACTIVITY button. The second screen for entering activity details will appear. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2j" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2" type="radio" name="s2j" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2j" value="0.5" onclick="getMark('s2', 'mrk2')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>The user can click the ADD ACTIVITY button again to add more activities for the current event. Each activity must have a unique key on Firebase Realtime database. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2k" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2" type="radio" name="s2k" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2k" value="0.5" onclick="getMark('s2', 'mrk2')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>If the user taps on the OPEN MAP button, the UC Bruce Campus map will appear. Your mark: </span>
+                            <label><input class="r s2 o2" type="radio" name="s2l" value="0.0" onclick="getMark('s2', 'mrk2')">  0.0 </label>
+                            <label><input class="r s2 c2" type="radio" name="s2l" value="0.25" onclick="getMark('s2', 'mrk2')">  0.25 </label>
+                        </li>
+                    </ol>
+
+                    <textarea class="col-md-12" rows="1" placeholder="no comment" value=""></textarea>
+                </p>
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <!-- --------------------------- -->
+                <p class="col-md-12">
+                    <input class="brown_bold" id="mrk3" type="number" value="0.0" step="0.25" min="0" max="4" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <span class="brown_bold">
+                            <span style="color:red;"> [4.0 marks]</span> The screen for adding a new activity.
+                        </span>
+                        <input type="checkbox" class="r" onclick="setAllMarks(this, 'c3', 'mrk3')" />
+                    </label>
+                    <label><span style="color:red;">0</span><input type="checkbox" onclick="setZeroMarks(this, 'o3')" /></label>
+                    <br />
+
+                    <ol>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>Action bar colour: navy, back arrow, and title (Add a New Activity and Edit It). No background colour for this screen. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3a" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3" type="radio" name="s3a" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3a" value="0.5" onclick="getMark('s3', 'mrk3')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>The event name (UC Open Day in this example) must appear on the main heading (see Assignment, page 2). Text size: 24sp, alignment: center, margin top: 16dp. margin left: 8dp, margin right: 8dp, layout_width: 0. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3b" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3" type="radio" name="s3b" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3b" value="0.5" onclick="getMark('s3', 'mrk3')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The subheading (Enter details for an activity): text size: 20sp, alignment: center, margin top: 8dp. margin left: 8dp, margin right: 8dp, layout_width: 0. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3c" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3c" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>Other input elements (Summary, Times, Dates, and Contact): text size: 20sp, alignment: left, margin top: 8dp, margin left: 8dp, margin right: 8dp, layout_width: 0. Use hint attribute (not text) to display the content in these elements. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3d" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3" type="radio" name="s3d" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                            <label><input class="r s3" type="radio" name="s3d" value="0.5" onclick="getMark('s3', 'mrk3')">  0.5 </label>
+                            <label><input class="r s3" type="radio" name="s3d" value="0.75" onclick="getMark('s3', 'mrk3')">  0.75 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3d" value="1.0" onclick="getMark('s3', 'mrk3')">  1.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The Summary input box is a 3-line edit text. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3e" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3e" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.75 mark]</span>
+                            <span>The spinner element for Select a location: text size: 20sp, alignment: left, margin top: 8dp, margin left: 8dp, margin right: 8dp, layout_width: 0. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3f" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3" type="radio" name="s3f" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                            <label><input class="r s3" type="radio" name="s3f" value="0.5" onclick="getMark('s3', 'mrk3')">  0.5 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3f" value="0.75" onclick="getMark('s3', 'mrk3')">  0.75 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The spinner element for Select a location dropdown list contains Select a location, Library, Refectory, Building 6, UC Hub, UC Lodge, and Current Location. The last location (Current Location) is the current user's phone's location. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3g" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3g" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>The user enters a title, summary, times, dates, and contact for an activity, selects a location then taps the SAVE ACTIVITY button. If all data are input and a location is selected, the app will display a screen for editing the current input activity data. Nothing happens if not all data are entered or the location is not selected. Your mark: </span>
+                            <label><input class="r s3 o3" type="radio" name="s3h" value="0.0" onclick="getMark('s3', 'mrk3')">  0.0 </label>
+                            <label><input class="r s3" type="radio" name="s3h" value="0.25" onclick="getMark('s3', 'mrk3')">  0.25 </label>
+                            <label><input class="r s3 c3" type="radio" name="s3h" value="0.5" onclick="getMark('s3', 'mrk3')">  0.5 </label>
+                        </li>
+                    </ol>
+
+                    <textarea class="col-md-12" rows="1" placeholder="no comment" value=""></textarea>
+                </p>
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <!-- --------------------------- -->
+                <p class="col-md-12">
+                    <input class="brown_bold" id="mrk4" type="number" value="0.0" step="0.25" min="0" max="4" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <span class="brown_bold">
+                            <span style="color:red;"> [4.0 marks]</span> The screen for editing the newly added activity.
+                        </span>
+                        <input type="checkbox" onclick="setAllMarks(this, 'c4', 'mrk4')" />
+                    </label>
+                    <label><span style="color:red;">0</span><input type="checkbox" onclick="setZeroMarks(this, 'o4')" /></label>
+                    <br />
+                    <ol>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>The design for this editing screen is the same as that for adding a new activity, except the spinner element for Selection a location is changed to an edit text element with the same size and constraints, and the content on the action bar, subheading and the button are different. Your mark: </span>
+                            <label><input class="r s4 o4" type="radio" name="s4a" value="0.0" onclick="getMark('s4', 'mrk4')">  0.0 </label>
+                            <label><input class="r s4" type="radio" name="s4a" value="0.25" onclick="getMark('s4', 'mrk4')">  0.25 </label>
+                            <label><input class="r s4" type="radio" name="s4a" value="0.5" onclick="getMark('s4', 'mrk4')">  0.5 </label>
+                            <label><input class="r s4" type="radio" name="s4a" value="0.75" onclick="getMark('s4', 'mrk4')">  0.75 </label>
+                            <label><input class="r s4 c4" type="radio" name="s4a" value="1.0" onclick="getMark('s4', 'mrk4')">  1.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [2.0 marks]</span>
+                            <span>The user makes changes on the input texts and taps the UPDATE ACTIVITY button. The latitude and longitude for the selected location and all the input data will be saved to Firebase Realtime Database and a new screen for capturing or loading an image for this activity appears. Your mark: </span>
+                            <label><input class="r s4 o4" type="radio" name="s4b" value="0.0" onclick="getMark('s4', 'mrk4')">  0.0 </label>
+                            <label><input class="r s4" type="radio" name="s4b" value="0.25" onclick="getMark('s4', 'mrk4')">  0.25 </label>
+                            <label><input class="r s4" type="radio" name="s4b" value="0.5" onclick="getMark('s4', 'mrk4')">  0.5 </label>
+                            <label><input class="r s4" type="radio" name="s4b" value="0.75" onclick="getMark('s4', 'mrk4')">  0.75 </label>
+                            <label><input class="r s4" type="radio" name="s4b" value="1.0" onclick="getMark('s4', 'mrk4')">  1.0 </label>
+                            <label><input class="r s4" type="radio" name="s4b" value="1.25" onclick="getMark('s4', 'mrk4')">  1.25 </label>
+                            <label><input class="r s4" type="radio" name="s4b" value="1.5" onclick="getMark('s4', 'mrk4')">  1.5 </label>
+                            <label><input class="r s4" type="radio" name="s4b" value="1.75" onclick="getMark('s4', 'mrk4')">  1.75 </label>
+                            <label><input class="r s4 c4" type="radio" name="s4b" value="2.0" onclick="getMark('s4', 'mrk4')">  2.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>The data labels and values for the uploaded activity on Firebase Realtime Database are correct. Your mark: </span>
+                            <label><input class="r s4 o4" type="radio" name="s4c" value="0.0" onclick="getMark('s4', 'mrk4')">  0.0 </label>
+                            <label><input class="r s4" type="radio" name="s4c" value="0.25" onclick="getMark('s4', 'mrk4')">  0.25 </label>
+                            <label><input class="r s4 c4" type="radio" name="s4c" value="0.5" onclick="getMark('s4', 'mrk4')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>Each uploaded activity on Firebase Realtime Database must have a unique key and is saved seperately from the previous uploaded activities (see the screenshot on page 4 in the assignment). Your mark: </span>
+                            <label><input class="r s4 o4" type="radio" name="s4d" value="0.0" onclick="getMark('s4', 'mrk4')">  0.0 </label>
+                            <label><input class="r s4" type="radio" name="s4d" value="0.25" onclick="getMark('s4', 'mrk4')">  0.25 </label>
+                            <label><input class="r s4 c4" type="radio" name="s4d" value="0.5" onclick="getMark('s4', 'mrk4')">  0.5 </label>
+                        </li>
+                    </ol>
+
+                    <textarea class="col-md-12" rows="1" placeholder="no comment" value=""></textarea>
+                </p>
+                <!-- --------------------------- -->
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <p class="col-md-12">
+                    <input class="brown_bold" id="mrk5" type="number" value="0.0" step="0.25" min="0" max="1" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <span class="brown_bold">
+                            <span style="color:red;"> [4.0 marks]</span> The screen for uploading an image to Firebase Cloud Storage.
+                        </span>
+                        <input type="checkbox" onclick="setAllMarks(this, 'c5', 'mrk5')" />
+                    </label>
+                    <label><span style="color:red;">0</span><input type="checkbox" onclick="setZeroMarks(this, 'o5')" /></label>
+                    <ol>
+                        <li>
+                            <span style="color:red;"> [0.75 mark]</span>
+                            <span>The UI design for this screen as seen in the assignment (page 3). Your mark: </span>
+                            <label><input class="r s5 o5" type="radio" name="s5a" value="0.0" onclick="getMark('s5', 'mrk5')">  0.0 </label>
+                            <label><input class="r s5" type="radio" name="s5a" value="0.25" onclick="getMark('s5', 'mrk5')">  0.25 </label>
+                            <label><input class="r s5" type="radio" name="s5a" value="0.5" onclick="getMark('s5', 'mrk5')">  0.5 </label>
+                            <label><input class="r s5 c5" type="radio" name="s5a" value="0.75" onclick="getMark('s5', 'mrk5')">  0.75 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>If the user taps the CAPTURE button, the built-in camera will open and the user can take a photo and display the photo on this app. Your mark: </span>
+                            <label><input class="r s5 o5" type="radio" name="s5b" value="0.0" onclick="getMark('s5', 'mrk5')">  0.0 </label>
+                            <label><input class="r s5" type="radio" name="s5b" value="0.25" onclick="getMark('s5', 'mrk5')">  0.25 </label>
+                            <label><input class="r s5 c5" type="radio" name="s5b" value="0.5" onclick="getMark('s5', 'mrk5')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>If the user taps the LOAD IMAGE button, the user can load an image from the phone gallery and display it on this app. Your mark: </span>
+                            <label><input class="r s5 o5" type="radio" name="s5c" value="0.0" onclick="getMark('s5', 'mrk5')">  0.0 </label>
+                            <label><input class="r s5" type="radio" name="s5c" value="0.25" onclick="getMark('s5', 'mrk5')">  0.25 </label>
+                            <label><input class="r s5 c5" type="radio" name="s5c" value="0.5" onclick="getMark('s5', 'mrk5')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.75 mark]</span>
+                            <span>The user taps the DONE button, the photo or image will be uploaded to Firebase Cloud Storage. The image filename must be unique. Your mark: </span>
+                            <label><input class="r s5 o5" type="radio" name="s5d" value="0.0" onclick="getMark('s5', 'mrk5')">  0.0 </label>
+                            <label><input class="r s5" type="radio" name="s5d" value="0.25" onclick="getMark('s5', 'mrk5')">  0.25 </label>
+                            <label><input class="r s5" type="radio" name="s5d" value="0.5" onclick="getMark('s5', 'mrk5')">  0.5 </label>
+                            <label><input class="r s5 c5" type="radio" name="s5d" value="0.75" onclick="getMark('s5', 'mrk5')">  0.75 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>After the user taps the DONE button, the app will open the home screen and the input event name must remain on this home screen. Your mark: </span>
+                            <label><input class="r s5 o5" type="radio" name="s5e" value="0.0" onclick="getMark('s5', 'mrk5')">  0.0 </label>
+                            <label><input class="r s5" type="radio" name="s5e" value="0.25" onclick="getMark('s5', 'mrk5')">  0.25 </label>
+                            <label><input class="r s5 c5" type="radio" name="s5e" value="0.5" onclick="getMark('s5', 'mrk5')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>Use local database (SQLite) to save the event name and display it on the main heading of all the screens. If the user changes the event name, the local database must update with this new event name. Your mark: </span>
+                            <label><input class="r s5 o5" type="radio" name="s5f" value="0.0" onclick="getMark('s5', 'mrk5')">  0.0 </label>
+                            <label><input class="r s5" type="radio" name="s5f" value="0.25" onclick="getMark('s5', 'mrk5')">  0.25 </label>
+                            <label><input class="r s5" type="radio" name="s5f" value="0.5" onclick="getMark('s5', 'mrk5')">  0.5 </label>
+                            <label><input class="r s5" type="radio" name="s5f" value="0.75" onclick="getMark('s5', 'mrk5')">  0.75 </label>
+                            <label><input class="r s5 c5" type="radio" name="s5f" value="1.0" onclick="getMark('s5', 'mrk5')">  1.0 </label>
+                        </li>
+                    </ol>
+
+                    <textarea class="col-md-12" rows="1" placeholder="no comment" value=""></textarea>
+                </p>
+                <div class="col-md-12">
+                    <hr />
+                </div>
+
+                <!-- --------------------------- -->
+                <!-- --------------------------- -->
+                <p class="col-md-12">
+                    <input class="brown_bold" id="mrk6" type="number" value="0.0" step="0.25" min="0" max="1" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <span class="brown_bold">
+                            <span style="color:red;"> [8.5 marks]</span> The screen for UC Bruce Campus Map.
+                        </span>
+                        <input type="checkbox" onclick="setAllMarks(this, 'c6', 'mrk6')" />
+                    </label>
+                    <label><span style="color:red;">0</span><input type="checkbox" onclick="setZeroMarks(this, 'o6')" /></label>
+
+                    <ol>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>Correct action bar colour, back arrow, and title. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6a" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6a" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6a" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The back arrow is to go back to the home screen. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6m" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6m" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The map is in full screen mode (all constraints set to 0). Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6b" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6b" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>The UC Bruce campus map has a blue boundary as seen in the assignment. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6e" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6e" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6" type="radio" name="s6e" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                            <label><input class="r s6" type="radio" name="s6e" value="0.75" onclick="getMark('s6', 'mrk6')">  0.75 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6e" value="1.0" onclick="getMark('s6', 'mrk6')">  1.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>The UC Bruce campus map has 4 pegman icons at 4 campus entries as seen in the assignment. If the user taps on one of the 4 Pegman icons, a new screen with the street view at that campus entry will appear (no info window appears before showing the street view). Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6k" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6k" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6" type="radio" name="s6k" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                            <label><input class="r s6" type="radio" name="s6k" value="0.75" onclick="getMark('s6', 'mrk6')">  0.75 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6k" value="1.0" onclick="getMark('s6', 'mrk6')">  1.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>The map must be displayed at the greatest possible zoom level (the left or right margin of the blue boundary is 10px for portrait mode, and the top or bottom margin of the blue boundary is 10px for landscape mode). This zoom level remains the same on different modes (portrait and landscape), and different phones, tablets or emulators used to run this app. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6d" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6d" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6" type="radio" name="s6d" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                            <label><input class="r s6" type="radio" name="s6d" value="0.75" onclick="getMark('s6', 'mrk6')">  0.75 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6d" value="1.0" onclick="getMark('s6', 'mrk6')">  1.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>The red circle indicates the current user's location (the last known location). Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6f" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6f" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6f" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>The blue markers are at the activities' locations. The app must download all the activities' details from the Firebase realtime database to locate these blue markers. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6g" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6g" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6" type="radio" name="s6g" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                            <label><input class="r s6" type="radio" name="s6g" value="0.75" onclick="getMark('s6', 'mrk6')">  0.75 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6g" value="1.0" onclick="getMark('s6', 'mrk6')">  1.0 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.5 marks]</span>
+                            <span>The red lines between the red circle and the blue markers are the routes that show the user how to walk from the user's current location to the activities' locations. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6h" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6h" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6" type="radio" name="s6h" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                            <label><input class="r s6" type="radio" name="s6h" value="0.75" onclick="getMark('s6', 'mrk6')">  0.75 </label>
+                            <label><input class="r s6" type="radio" name="s6h" value="1.0" onclick="getMark('s6', 'mrk6')">  1.0 </label>
+                            <label><input class="r s6" type="radio" name="s6h" value="1.25" onclick="getMark('s6', 'mrk6')">  1.25 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6h" value="1.5" onclick="getMark('s6', 'mrk6')">  1.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>If the user taps on the red circle, an info window will appear that shows 'You are here' and the current location. If the user taps on this info window, nothing is changed. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6i" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6i" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6i" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>If the user taps on a blue marker, an info window will appear that shows the details of the activity (downloaded from the realtime database). If the user taps on this info window, all details will be listed on a new screen with the details downloaded from the realtime database and the image downloaded from the cloud storage. Your mark: </span>
+                            <label><input class="r s6 o6" type="radio" name="s6j" value="0.0" onclick="getMark('s6', 'mrk6')">  0.0 </label>
+                            <label><input class="r s6" type="radio" name="s6j" value="0.25" onclick="getMark('s6', 'mrk6')">  0.25 </label>
+                            <label><input class="r s6" type="radio" name="s6j" value="0.5" onclick="getMark('s6', 'mrk6')">  0.5 </label>
+                            <label><input class="r s6" type="radio" name="s6j" value="0.75" onclick="getMark('s6', 'mrk6')">  0.75 </label>
+                            <label><input class="r s6 c6" type="radio" name="s6j" value="1.0" onclick="getMark('s6', 'mrk6')">  1.0 </label>
+                        </li>
+
+                    </ol>
+
+                    <textarea class="col-md-12" rows="1" placeholder="no comment" value=""></textarea>
+                </p>
+                <!-- --------------------------- -->
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <!-- --------------------------- -->
+                <p class="col-md-12">
+                    <input class="brown_bold" id="mrk7" type="number" value="0.0" step="0.25" min="0" max="1" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <span class="brown_bold">
+                            <span style="color:red;"> [2.0 marks]</span> The screen for showing details of the current activity (opened by tapping an info window on the map)
+                        </span>
+                        <input type="checkbox" onclick="setAllMarks(this, 'c7', 'mrk7')" />
+                    </label>
+                    <label><span style="color:red;">0</span><input type="checkbox" onclick="setZeroMarks(this, 'o7')" /></label>
+
+                    <ol>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>Correct action bar colour, back arrow, and title. Your mark: </span>
+                            <label><input class="r s7 o7" type="radio" name="s7a" value="0.0" onclick="getMark('s7', 'mrk7')">  0.0 </label>
+                            <label><input class="r s7 c7" type="radio" name="s7a" value="0.25" onclick="getMark('s7', 'mrk7')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>Correct design for this screen as seen in the assignment (page 6). Your mark: </span>
+                            <label><input class="r s7 o7" type="radio" name="s7b" value="0.0" onclick="getMark('s7', 'mrk7')">  0.0 </label>
+                            <label><input class="r s7" type="radio" name="s7b" value="0.25" onclick="getMark('s7', 'mrk7')">  0.25 </label>
+                            <label><input class="r s7 c7" type="radio" name="s7b" value="0.5" onclick="getMark('s7', 'mrk7')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [1.0 mark]</span>
+                            <span>Correct content on heading, subheading, title, summary, times, dates, contact, location and image. Your mark: </span>
+                            <label><input class="r s7 o7" type="radio" name="s7c" value="0.0" onclick="getMark('s7', 'mrk7')">  0.0 </label>
+                            <label><input class="r s7" type="radio" name="s7c" value="0.25" onclick="getMark('s7', 'mrk7')">  0.25 </label>
+                            <label><input class="r s7" type="radio" name="s7c" value="0.5" onclick="getMark('s7', 'mrk7')">  0.5 </label>
+                            <label><input class="r s7" type="radio" name="s7c" value="0.75" onclick="getMark('s7', 'mrk7')">  0.75 </label>
+                            <label><input class="r s7 c7" type="radio" name="s7c" value="1.0" onclick="getMark('s7', 'mrk7')">  1.0 </label>
+                        </li>
+
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>If the user taps the BACK TO MAP button, the user is redirected to the Maps screen. Your mark: </span>
+                            <label><input class="r s7 o7" type="radio" name="s7g" value="0.0" onclick="getMark('s7', 'mrk7')">  0.0 </label>
+                            <label><input class="r s7 c7" type="radio" name="s7g" value="0.25" onclick="getMark('s7', 'mrk7')">  0.25 </label>
+                        </li>
+                    </ol>
+
+                    <textarea class="col-md-12" rows="1" placeholder="no comment" value=""></textarea>
+                </p>
+                <!-- --------------------------- -->
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <!-- --------------------------- -->
+                <p class="col-md-12">
+                    <input class="brown_bold" id="mrk8" type="number" value="0.0" step="0.25" min="0" max="1" onclick="get_total_mark()" onchange="get_total_mark()" />
+                    <label>
+                        <span class="brown_bold">
+                            <span style="color:red;"> [1.5 marks]</span> The screen for Street View.
+                        </span>
+                        <input type="checkbox" onclick="setAllMarks(this, 'c8', 'mrk8')" />
+                    </label>
+                    <label><span style="color:red;">0</span><input type="checkbox" onclick="setZeroMarks(this, 'o8')" /></label>
+
+                    <ol>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>Correct action bar colour, back arrow, and title. Your mark: </span>
+                            <label><input class="r s8 o8" type="radio" name="s8a" value="0.0" onclick="getMark('s8', 'mrk8')">  0.0 </label>
+                            <label><input class="r s8 c8" type="radio" name="s8a" value="0.25" onclick="getMark('s8', 'mrk8')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>The street view is in full screen mode (all constraints set to 0). Your mark: </span>
+                            <label><input class="r s8 o8" type="radio" name="s8b" value="0.0" onclick="getMark('s8', 'mrk8')">  0.0 </label>
+                            <label><input class="r s8" type="radio" name="s8b" value="0.25" onclick="getMark('s8', 'mrk8')">  0.25 </label>
+                            <label><input class="r s8 c8" type="radio" name="s8b" value="0.5" onclick="getMark('s8', 'mrk8')">  0.5 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.25 mark]</span>
+                            <span>The back arrow is to go back to the map screen. Your mark: </span>
+                            <label><input class="r s8 o8" type="radio" name="s8f" value="0.0" onclick="getMark('s8', 'mrk8')">  0.0 </label>
+                            <label><input class="r s8 c8" type="radio" name="s8f" value="0.25" onclick="getMark('s8', 'mrk8')">  0.25 </label>
+                        </li>
+                        <li>
+                            <span style="color:red;"> [0.5 mark]</span>
+                            <span>Correct street view for each UC campus entry. Your mark: </span>
+                            <label><input class="r s8 o8" type="radio" name="s8h" value="0.0" onclick="getMark('s8', 'mrk8')">  0.0 </label>
+                            <label><input class="r s8" type="radio" name="s8h" value="0.25" onclick="getMark('s8', 'mrk8')">  0.25 </label>
+                            <label><input class="r s8 c8" type="radio" name="s8h" value="0.5" onclick="getMark('s8', 'mrk8')">  0.5 </label>
+                        </li>
+                    </ol>
+
+                    <textarea class="col-md-12" rows="1" placeholder="no comment" value=""></textarea>
+                </p>
+                <!-- --------------------------- -->
+                <div class="col-md-12">
+                    <hr />
+                </div>              
+            </div>
+
+
+            <div class="col-md-12">
+                <h5 style="font-weight:bold; color:brown;">Please use contact details given above if you have questions and concerns on your mark. <br /> Please contact me if there is error on this mark sheet. Thanks. Dat Tran (dat.tran@canberra.edu.au).</h5>
+                <div class="col-md-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("input.r").on("click", function () {
+                if ($(this).attr("type") === "radio") {
+                    $(this).parent().siblings().removeClass("isSelected");
+                }
+                $(this).parent().toggleClass("isSelected");
+            });
+        });
+
+        $(document).on('input', 'textarea', function () {
+            $(this).outerHeight(38).outerHeight(this.scrollHeight); // 38 or '1em' -min-height
+        });
+
+        function getMark(cssClass, sectionId) {
+            //var mark = 0;
+            //var names = document.getElementsByName(name);
+            //for (var i = 0; i < names.length; i++) {
+            //    if (names[i].checked) {
+            //        mark = parseFloat(names[i].value, 10);
+            //        break;
+            //    }
+            //}
+            var elements = document.getElementsByClassName(cssClass);
+            var sectionMark = 0;
+            for (var k = 0; k < elements.length; k++) {
+                if (elements[k].checked) {
+                    sectionMark += parseFloat(elements[k].value, 10);
+                }
+            }
+
+            var e = document.getElementById(sectionId);
+            e.value = sectionMark.toFixed(2).toString();
+            get_total_mark();
+        }
+
+        function setAllMarks(obj, css, sectionId) {
+            var allItemsInSection = document.getElementsByClassName(css);
+            if (obj.checked) {
+                for (var i = 0; i < allItemsInSection.length; i++) {
+                    if (allItemsInSection[i].checked == false)
+                        allItemsInSection[i].click();
+                }
+            } else {
+                for (var k = 0; k < allItemsInSection.length; k++) {
+                    if (allItemsInSection[k].checked == true) {
+                        allItemsInSection[k].checked = false;
+                        
+                    }
+                }
+            }
+            getMark(css, sectionId);
+        }
+
+        function setZeroMarks(obj, css) {
+            var allItemsInSection = document.getElementsByClassName(css);
+            if (obj.checked) {
+                for (var i = 0; i < allItemsInSection.length; i++) {
+                    if (allItemsInSection[i].checked == false)
+                        allItemsInSection[i].click();
+                }
+            } else {
+                for (var k = 0; k < allItemsInSection.length; k++) {
+                    if (allItemsInSection[k].checked == true) {
+                        allItemsInSection[k].checked = false;
+
+                    }
+                }
+            }
+        }
+
+
+        function set_mark(obj, mark, mark_id) {
+            var e = document.getElementById(mark_id);
+            var curr_mark = parseFloat(e.value, 10);
+            //var input_mark = parseFloat(mark, 10);
+
+            if (obj.checked) {
+                e.value = mark.toFixed(2).toString();
+            } else {
+                e.value = curr_mark.toFixed(2).toString();
+            }
+            get_total_mark();
+        }
+
+        function add_mark(obj, mark, mark_id) {
+            var e = document.getElementById(mark_id);
+            var curr_mark = parseFloat(e.value, 10);
+            //var input_mark = parseFloat(mark, 10);
+
+            if (obj.checked) {
+                e.value = (curr_mark + mark).toFixed(2).toString();
+            } else {
+                e.value = (curr_mark - mark).toFixed(2).toString();
+            }
+            get_total_mark();
+            if (mark_id == 'template' || mark_id == 'plagiarism' || mark_id == 'folder') {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].disabled = true;
+                }
+            }
+        }
+
+        function mark_all(obj, name) {
+            var all = document.getElementsByName(name);
+            if (obj.checked) {
+                for (var i = 0; i < all.length; i++) {
+                    if (all[i].checked == false)
+                        all[i].click();
+                }
+
+            } else {
+                for (var i = 0; i < all.length; i++) {
+                    if (all[i].checked == true)
+                        all[i].click();
+                }
+            }
+        }
+        
+
+        function get_total_mark() {
+            var template = parseFloat((document.getElementById('template')).value, 10);
+            var plagiarism = parseFloat((document.getElementById('plagiarism')).value, 10);
+            var dependencies = parseFloat((document.getElementById('dependencies')).value, 10);
+            var deprecated = parseFloat((document.getElementById('deprecated')).value, 10);
+            var ded2 = parseFloat((document.getElementById('ded2')).value, 10);
+            var ded3 = parseFloat((document.getElementById('ded3')).value, 10);
+            var mrk2 = parseFloat((document.getElementById('mrk2')).value, 10);
+            var mrk3 = parseFloat((document.getElementById('mrk3')).value, 10);
+            var mrk4 = parseFloat((document.getElementById('mrk4')).value, 10);
+            var mrk5 = parseFloat((document.getElementById('mrk5')).value, 10);
+            var mrk6 = parseFloat((document.getElementById('mrk6')).value, 10);
+            var mrk7 = parseFloat((document.getElementById('mrk7')).value, 10);
+            var mrk8 = parseFloat((document.getElementById('mrk8')).value, 10);
+
+            var total = template + plagiarism + dependencies + deprecated + ded2 + ded3 + mrk2 + mrk3
+                + mrk4 + mrk5 + mrk6 + mrk7 + mrk8;
+
+            document.getElementById('total_mark').value = total.toFixed(2).toString();
+        }
+    </script>
+
+</body>
+</html>
