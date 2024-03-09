@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UCEvents</string>
+    <string name="add_event">Add Event</string>
+    <string name="open_map">Open Map</string>
+    <string name="event_name">Event Name</string>
+    <string name="enter_an_event_name_and_then_tap_the_quot_add_event_quot_button_to_add_an_activity_for_this_event">Enter an event name and then tap the \"Add Event\" button to add an activity for this event</string>
+    <string name="bruce_campus">Bruce Campus</string>
+    <string name="university_of_canberra">University of Canberra</string>
+</resources>
