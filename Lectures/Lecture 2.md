@@ -188,3 +188,60 @@ public boolean onOptionsItemSelected(MenuItem item) {
 ```
 
 ==More study is going to be required in order to understand what is going on here.==
+
+## Primary colour
+Something I found while making my assignment is that you are able to change the default colour of the application. Mine seems to always turn out purple, which is less than ideal in some circumstances. We can modify this by doing the following:
+
+1. In `res/values/colors.xml`, add new fields for different custom colours that you want.
+```xml
+<?xml version="1.0" encoding="utf-8"?>  
+<resources>  
+    <color name="black">#FF000000</color>  
+    <color name="white">#FFFFFFFF</color>  
+    <color name="uc_blue">#009ABC</color>  
+</resources>
+```
+
+2. Now that we have added the colours we want into the application, go to `res/values/themes/` and choose the relevant theme. You then need to add a line into the file inside the first `style` field so that it looks like this:
+```xml
+<style name="Base.Theme.UCEvents" parent="Theme.Material3.DayNight.NoActionBar"> 
+    <!-- Customize your light theme here. -->  
+    <item name="colorPrimary">@color/uc_blue</item> </style>
+```
+## Toolbar
+This is technically not covered in the lecture but I think it's important to cover for a fully customisable experience. To remove the default action bar, go to `res/values/styles.xml` and replace `parent="Theme.AppCompact.Light.DarkActionBar` with `parent="Theme.AppCompact.Light.NoActionBar`.
+
+Next, we need to create the toolbar as a layout resource. Go to `res/layout/` and right click, and then add `New > Layout resource file`. Call this new resource "toolbar" or something of the sort, and then change the root element to be `androidx.appcompat.widget.Toolbar`, and then click OK.
+
+Then, in the XML, you can modify a bunch of different values. Start by modifying the following:
+```XML
+<?xml version="1.0" encoding="utf-8"?>  
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="match_parent"  
+    android:layout_height="wrap_content"  
+    android:background="#000080">  
+</androidx.appcompat.widget.Toolbar>
+```
+
+The `layout_height` should be set to `wrap_content`, otherwise it takes up a whole screen.
+The `background` will change the colour of the toolbar. 
+
+Next, put the following at the top of the activity you want to include this toolbar with:
+```XML
+<include  
+    android:id="@+id/toolbar"  
+    layout="@layout/toolbar" />
+```
+
+So currently, we have a completely blank toolbar. We need to update this in the Java file for our activity. 
+
+```java
+ @Override
+protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	// Set the title
+	Toolbar toolbar = findViewById(R.id.toolbar);
+	toolbar.setTitle("UC Bruce Campus Map and Events");
+}
+
+```
