@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "122495711858",
+    "firebase_url": "https://mobile-tech-app-35bc0-default-rtdb.firebaseio.com",
+    "project_id": "mobile-tech-app-35bc0",
+    "storage_bucket": "mobile-tech-app-35bc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122495711858:android:8c108d224e09921831e0eb",
+        "android_client_info": {
+          "package_name": "com.example.mobiletechapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq1BUGflMRY3lyTjOXA-J19IZnyUnDIEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
