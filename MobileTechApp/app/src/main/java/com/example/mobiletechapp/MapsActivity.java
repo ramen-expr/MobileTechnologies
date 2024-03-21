@@ -4,9 +4,12 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationRequest;
@@ -16,6 +19,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,6 +36,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.mobiletechapp.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -35,12 +45,17 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.maps.android.PolyUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -74,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         LatLng uc = new LatLng(-35.24, 149.08);
@@ -164,4 +179,77 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
 
    }
+
+    public void showDirection(View view) {
+        LatLng cit = new LatLng(-35.247502915070626, 149.09557187772742);
+        LatLng uc = new LatLng(-35.24, 149.08);
+        mMap.moveCamera(CameraUpdateFactory.
+                newLatLngZoom(uc, 14));
+        String apiKey = getMapApiKey(this);
+        drawRoute(apiKey, cit, uc);
+    }
+
+    public void drawRoute(String apiKey, LatLng origin, LatLng destination) {
+        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="
+                + origin.latitude + "," + origin.longitude + "&destination="
+                + destination.latitude + "," + destination.longitude
+                + "&mode=driving&key=" + apiKey;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.
+                        GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+// Parse the JSON response and draw the route on the map
+                        PolylineOptions polylineOptions = new PolylineOptions();
+                        polylineOptions.color(Color.
+                                RED);
+                        polylineOptions.width(14);
+                        JSONArray routes = null;
+                        try {
+                            routes = response.getJSONArray("routes");
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        for (int i = 0; i < routes.length(); i++) {
+                            try {
+                                JSONObject route = routes.getJSONObject(i);
+                                JSONObject overviewPolyline = route.getJSONObject("overview_polyline");
+                                String points = overviewPolyline.getString("points");
+                                List<LatLng> path = PolyUtil.
+                                        decode(points);
+                                polylineOptions.addAll(path);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        mMap.addPolyline(polylineOptions);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        RequestQueue requestQueue = Volley.
+                newRequestQueue(getApplicationContext());
+        requestQueue.add(jsonObjectRequest);
+    }
+    public String getMapApiKey(Context context) {
+        String apiKey = null;
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                    context.getPackageName(), PackageManager.
+                            GET_META_DATA);
+            Bundle bundle = appInfo.metaData;
+            if (bundle != null) {
+                apiKey = bundle.getString("com.google.android.geo.API_KEY");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return apiKey;
+    }
+
 }
