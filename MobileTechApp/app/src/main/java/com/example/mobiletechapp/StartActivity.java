@@ -3,6 +3,7 @@ package com.example.mobiletechapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -28,6 +29,9 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+
 
 public class StartActivity extends AppCompatActivity {
 
@@ -37,7 +41,21 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         setTitle("Mobile Tech App - Weeks 2-5");
-//        uploadSingleValueToRealtimeDatabase("Week 6", "Testing realtime database");
+
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#0F9D58"));
+
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+
+        // uploadSingleValueToRealtimeDatabase("Week 6", "Testing realtime database");
 //        downloadSingleValueFromRealtimeDB("Week 6");
 //        uploadMultipleValuesToRealtimeDB(-35.2369777,149.0841217, "UC Building 6");
         downloadMultipleValuesFromRealtimeDB();
