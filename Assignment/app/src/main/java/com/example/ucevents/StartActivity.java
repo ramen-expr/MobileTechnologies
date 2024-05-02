@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.ActionBar;
@@ -42,7 +43,11 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void openAddEventActivity(View view) {
+        EditText title = findViewById(R.id.editTextEventName);
+        String EventName = title.getText().toString();
+
         Intent intent = new Intent(this, AddEventActivity.class);
+        intent.putExtra("EVENT-NAME", EventName);
         startActivity(intent);
     }
 }

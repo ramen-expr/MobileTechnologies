@@ -20,15 +20,20 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class AddEventActivity extends AppCompatActivity {
+public class EditEventActivity extends AppCompatActivity {
 
     String eventName = null;
-
+    String activityName_val = null;
+    String summary_val = null;
+    String times_val = null;
+    String dates_val = null;
+    String contact_val = null;
+    String location_val = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_event);
+        setContentView(R.layout.activity_edit_event);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,64 +50,49 @@ public class AddEventActivity extends AppCompatActivity {
                 = new ColorDrawable(Color.parseColor("#000080"));
         // Set BackgroundDrawable
         actionBar.setBackgroundDrawable(colorDrawable);
-        actionBar.setTitle("Add New Activity and Edit It");
+        actionBar.setTitle("Edit An Existing Activity");
 
-        // Set the location options
-        Spinner locations = findViewById(R.id.spinnerLocation);
-
-        ArrayList<String> locs = new ArrayList<>();
-        locs.add("Select a location");
-        locs.add("Library");
-        locs.add("Refectory");
-        locs.add("Building 6");
-        locs.add("UC Hub");
-        locs.add("UC Lodge");
-        locs.add("Current Location");
-
-        ArrayAdapter<String> loc_adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, locs);
-
-        loc_adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        locations.setAdapter(loc_adapter);
-
-        // Get the title from the previous screen
-
-
+        // Get the info from the previous page
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 eventName = null;
             } else {
-                eventName= extras.getString("EVENT-NAME");
+                eventName= extras.getString("eventTitle");
+                activityName_val = extras.getString("activityTitle");
+                summary_val = extras.getString("activitySummary");
+                times_val = extras.getString("activityTimes");
+                dates_val = extras.getString("activityDates");
+                contact_val = extras.getString("activityContact");
+                location_val = extras.getString("activityLocation");
             }
         }
 
+        // Grab all the variables
         TextView title = findViewById(R.id.TextViewActivityTitle);
         title.setText(eventName);
-    }
 
-    public void openEditEventActivity(View view) {
-        // Grab all the variables
         EditText activityName = findViewById(R.id.editTextTitleField);
-        String activityName_val = activityName.getText().toString();
+        activityName.setText(activityName_val);
 
         EditText summary = findViewById(R.id.editTextSummary);
-        String summary_val = summary.getText().toString();
+        summary.setText(summary_val);
 
         EditText times = findViewById(R.id.editTextTimeEvent);
-        String times_val = times.getText().toString();
+        times.setText(times_val);
 
         EditText dates = findViewById(R.id.editTextDateEvent);
-        String dates_val = dates.getText().toString();
+        dates.setText(dates_val);
 
         EditText contact = findViewById(R.id.editTextContact);
-        String contact_val = contact.getText().toString();
+        contact.setText(contact_val);
 
-        Spinner location = findViewById(R.id.spinnerLocation);
-        String location_val = location.getSelectedItem().toString();
+        EditText location = findViewById(R.id.editTextLocation);
+        location.setText(location_val);
+    }
 
-        // Put all the info into the intent
-        Intent intent = new Intent(this, EditEventActivity.class);
+    public void openPhotoSelectActivity(View view) {
+        Intent intent = new Intent(this, SelectPhotoActivity.class);
         intent.putExtra("eventTitle", eventName);
         intent.putExtra("activityTitle", activityName_val);
         intent.putExtra("activitySummary", summary_val);
@@ -110,8 +100,6 @@ public class AddEventActivity extends AppCompatActivity {
         intent.putExtra("activityDates", dates_val);
         intent.putExtra("activityContact", contact_val);
         intent.putExtra("activityLocation", location_val);
-
         startActivity(intent);
     }
-
 }

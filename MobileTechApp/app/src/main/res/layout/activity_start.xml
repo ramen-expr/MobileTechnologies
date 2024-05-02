@@ -69,7 +69,33 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonStreetView"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOpenAnim"
         app:srcCompat="@drawable/stars" />
+
+    <Button
+        android:id="@+id/buttonMLKit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
+        android:onClick="viewMLK"
+        android:text="OPEN MLKit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStreetView" />
+
+    <Button
+        android:id="@+id/buttonOpenAnim"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
+        android:onClick="viewAnimation"
+        android:text="Open Animation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonMLKit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,6 +80,11 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void viewAnimation(View view) {
+        Intent intent = new Intent(this, AnimationActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -103,6 +108,11 @@ public class StartActivity extends AppCompatActivity {
 
     public void viewStreetView(View view) {
         Intent intent = new Intent(this, StreetViewActivity.class);
+        startActivity(intent);
+    }
+
+    public void viewMLK(View view) {
+        Intent intent = new Intent(this, MLKitActivity.class);
         startActivity(intent);
     }
 

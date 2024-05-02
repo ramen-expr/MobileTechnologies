@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "800143749943",
+    "project_id": "ucevents-e2f95",
+    "storage_bucket": "ucevents-e2f95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800143749943:android:6b055bd218362cc7fb20b2",
+        "android_client_info": {
+          "package_name": "com.example.ucevents"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5IlNSkmO-jTrz19iOxRWtlTV8sq4ZNus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

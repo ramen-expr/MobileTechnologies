@@ -8,7 +8,7 @@
     android:layout_marginTop="24dp"
     android:background="#FFFFFF"
     android:forceDarkAllowed="false"
-    tools:context=".AddEventActivity">
+    tools:context=".EditEventActivity">
 
 
     <TextView
@@ -133,6 +133,7 @@
         android:ems="10"
         android:hint="Location"
         android:inputType="text"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextContact" />
@@ -144,6 +145,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:onClick="openPhotoSelectActivity"
         android:text="Edit Activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
